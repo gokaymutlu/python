@@ -1,0 +1,68 @@
+class Kutuphane:
+    def _init_(self):
+        self.kitaplar = []
+
+    def kitap_listele(self):
+        if not self.kitaplar:
+            print("Kütüphanede henüz kitap bulunmamaktadır.")
+        else:
+            print("Kütüphanedeki Kitaplar:")
+            for kitap in self.kitaplar:
+                print("Kitap Adı:", kitap["adı"])
+                print("Yazarı:", kitap["yazarı"])
+                print("Sayfa Sayısı:", kitap["sayfa_sayısı"])
+                print("Yayım Yılı:", kitap["yayım_yılı"])
+                print("-----------------------")
+
+    def kitap_ekle(self, adı, yazarı, sayfa_sayısı, yayım_yılı):
+        self.kitaplar.append({
+            "adı": adı,
+            "yazarı": yazarı,
+            "sayfa_sayısı": sayfa_sayısı,
+            "yayım_yılı": yayım_yılı
+        })
+        print(adı, "kitabı kütüphaneye eklendi.")
+
+    def kitap_sil(self, adı):
+        for kitap in self.kitaplar:
+            if kitap["adı"] == adı:
+                self.kitaplar.remove(kitap)
+                print(adı, "kitabı kütüphaneden silindi.")
+                return
+        print(adı, "kitabı kütüphanede bulunamadı.")
+
+def main():
+    k = Kutuphane()
+    while True:
+        print("\n1. Kitap Listele")
+        print("2. Kitap Ekle")
+        print("3. Kitap Sil")
+        print("q. Çıkış")
+
+        secim = input("Yapmak istediğiniz işlemi seçin: ")
+
+        if secim == "1":
+            k.kitap_listele()
+        elif secim == "2":
+            adı = input("Kitap Adı: ")
+            yazarı = input("Yazarı: ")
+            sayfa_sayısı = input("Sayfa Sayısı: ")
+            while not sayfa_sayısı.isdigit():
+                sayfa_sayısı = input("Lütfen geçerli bir sayı girin: ")
+            sayfa_sayısı = int(sayfa_sayısı)
+            yayım_yılı = input("Yayım Yılı: ")
+            while not yayım_yılı.isdigit():
+                yayım_yılı = input("Lütfen geçerli bir sayı girin: ")
+            yayım_yılı = int(yayım_yılı)
+            k.kitap_ekle(adı, yazarı, sayfa_sayısı, yayım_yılı)
+        elif secim == "3":
+            adı = input("Silmek istediğiniz kitabın adını girin: ")
+            k.kitap_sil(adı)
+        elif secim.lower() == "q":
+            print("Programdan çıkılıyor...")
+            break
+        else:
+            print("Geçersiz seçim. Lütfen tekrar deneyin.")
+
+if _name_ == "_main_":
+    main()
